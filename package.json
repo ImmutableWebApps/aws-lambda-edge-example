@@ -1,0 +1,58 @@
+{
+  "name": "@immutablewebapps/aws-lambda-edge",
+  "version": "0.0.0",
+  "description": "At the aws-lambda-edge.",
+  "main": "src/index",
+  "sideEffects": false,
+  "keywords": [
+    "aws",
+    "example",
+    "immutable web apps",
+    "lambda",
+    "lambda@edge",
+    "parcel",
+    "react",
+    "serverless",
+    "spa",
+    "single page app",
+    "webapp"
+  ],
+  "homepage": "https://github.com/immutablewebapps/aws-lambda-edge",
+  "bugs": "https://github.com/immutablewebapps/aws-lambda-edge/issues",
+  "repository": "immutablewebapps/aws-lambda-edge",
+  "license": "MIT",
+  "author": {
+    "name": "Evan Sosenko",
+    "email": "razorx@evansosenko.com"
+  },
+  "files": [
+    "package-lock.json",
+    "src"
+  ],
+  "scripts": {
+    "test": "true",
+    "pretest": "npm run lint",
+    "lint": "standard",
+    "build": "parcel build --no-content-hash src/index.js",
+    "prebuild": "del dist",
+    "client": "parcel src/index.html",
+    "preversion": "npm test",
+    "postversion": "git push && git push --tags"
+  },
+  "engines": {
+    "node": ">=8.10.0"
+  },
+  "standard": {
+    "parser": "babel-eslint"
+  },
+  "dependencies": {
+    "react": "^16.6.1",
+    "react-dom": "^16.6.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "del-cli": "^1.1.0",
+    "parcel-bundler": "^1.10.3",
+    "standard": "^12.0.1"
+  }
+}

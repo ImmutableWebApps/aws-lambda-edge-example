@@ -1,0 +1,7 @@
+.logo {
+  width: 100px;
+  height: 100px;
+  background-image: url('./2000px-React-icon.svg.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
