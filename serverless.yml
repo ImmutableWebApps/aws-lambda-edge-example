@@ -34,7 +34,7 @@ custom:
     distributionFolder: .bucket
     objectHeaders:
       ALL_OBJECTS:
-        - name: cache-control
+        - name: Cache-Control
           value: 'public, max-age=31536000, immutable'
 
 package:
