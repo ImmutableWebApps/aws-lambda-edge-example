@@ -32,12 +32,14 @@ functions:
       eventType: origin-request
 
 custom:
-  org: immutablewebapps
-  domain: ${self:service}.immutableweb.app
+  organization: ${ssm:/app/${self:service}/organization}
+  domain: ${ssm:/app/${self:service}/domain}
+  hostedZoneId: ${ssm:/app/${self:service}/hostedZoneId}
+  certificateId: ${ssm:/app/${self:service}/certificateId}
   appDomain: ${self:provider.stage}.${self:custom.domain}
-  assetDomain: ${self:provider.stage}-assets.${self:custom.domain}
+  assetDomain: ${ssm:/app/${self:service}/${self:provider.stage}/assetDomain}
   client:
-    bucketName: ${self:custom.org}-${self:service}
+    bucketName: ${self:custom.organization}-${self:service}
     distributionFolder: .bucket
     objectHeaders:
       ALL_OBJECTS:
@@ -56,7 +58,7 @@ resources:
     AppBucket:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: ${self:custom.org}-${self:service}-${self:provider.stage}
+        BucketName: ${self:custom.organization}-${self:service}-${self:provider.stage}
     AppDistribution:
       Type: AWS::CloudFront::Distribution
       Properties:
@@ -64,8 +66,10 @@ resources:
           Enabled: true
           PriceClass: PriceClass_100
           HttpVersion: http2
+          Aliases:
+            - ${self:custom.appDomain}
           ViewerCertificate:
-            CloudFrontDefaultCertificate: true
+            IamCertificateId: ${self:custom.certificateId}
           DefaultCacheBehavior:
             TargetOriginId: AppBucketOrigin
             ViewerProtocolPolicy: redirect-to-https
@@ -77,6 +81,16 @@ resources:
             - Id: AppBucketOrigin
               DomainName: { 'Fn::GetAtt': [ 'AppBucket', 'DomainName' ] }
               S3OriginConfig: {}
+    AppRecord:
+      Type: AWS::Route53::RecordSetGroup
+      Properties:
+        HostedZoneId: ${self:custom.hostedZoneId}
+        RecordSets:
+          - Name: ${self:custom.appDomain}
+            Type: A
+            AliasTarget:
+              HostedZoneId: Z2FDTNDATAQYW2
+              DNSName: { 'Fn::GetAtt': [ 'AppDistribution', 'DomainName' ] }
     AssetDistribution:
       Type: AWS::CloudFront::Distribution
       Properties:
@@ -84,8 +98,11 @@ resources:
           Enabled: true
           PriceClass: PriceClass_100
           HttpVersion: http2
+          Aliases:
+            - ${self:custom.assetDomain}
           ViewerCertificate:
-            CloudFrontDefaultCertificate: true
+            IamCertificateId: ${self:custom.certificateId}
+            SslSupportMethod: sni-only
           DefaultCacheBehavior:
             TargetOriginId: AssetBucketOrigin
             ViewerProtocolPolicy: redirect-to-https
@@ -105,3 +122,13 @@ resources:
             - Id: AssetBucketOrigin
               DomainName: ${self:custom.client.bucketName}.s3.amazonaws.com
               S3OriginConfig: {}
+    AssetRecord:
+      Type: AWS::Route53::RecordSetGroup
+      Properties:
+        HostedZoneId: ${self:custom.hostedZoneId}
+        RecordSets:
+          - Name: ${self:custom.assetDomain}
+            Type: A
+            AliasTarget:
+              HostedZoneId: Z2FDTNDATAQYW2
+              DNSName: { 'Fn::GetAtt': [ 'AssetDistribution', 'DomainName' ] }

@@ -46,11 +46,38 @@ $ git clone git@github.com:immutablewebapps/aws-lambda-edge.git
 
 ### Initial Setup
 
-0. Setup [Serverless Credentials for AWS] and login to [npm].
-1. Add a hosted zone in Route53 for `immutableweb.app`.
+_Note: find and replace the following values in this repo
+with custom values to setup a completely independent project:
+`immutablewebapps`, `immutableweb.app` and `aws-lambda-edge`._
+
+0. Setup [Serverless Credentials for AWS] and login to [npm]
+   and add the organization name to the parameter store
+   ```
+   aws ssm put-parameter --type "String" \
+     --name "/app/aws-lambda-edge/organization" \
+     --value "immutablewebapps"
+   ```
+  domain: aws-lambda-edge.immutableweb.app
+1. Add a hosted zone in Route53 for `immutableweb.app` and
+   add the domain and Zone ID to the parameter store with
+   ```
+   aws ssm put-parameter --type "String" \
+     --name "/app/aws-lambda-edge/domain" \
+     --value "aws-lambda-edge.immutableweb.app"
+
+   aws ssm put-parameter --type "String" \
+     --name "/app/aws-lambda-edge/hostedZoneId" \
+     --value "<zone-id>"
+   ```
 2. Create a certificate with Certificate Manager for
    `aws-lambda-edge.immutableweb.app` and
-   `*.aws-lambda-edge.immutableweb.app`.
+   `*.aws-lambda-edge.immutableweb.app`
+   and add the certificate identifier to the parameter store with
+   ```
+   aws ssm put-parameter --type "String" \
+     --name "/app/aws-lambda-edge/certificateId" \
+     --value "<certificate-identifier>"
+   ```
 3. Create the parameter for the test asset domain with
    ```
    aws ssm put-parameter --type "String" \
