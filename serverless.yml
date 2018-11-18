@@ -18,6 +18,7 @@ functions:
   app:
     handler: handlers.index
     environment:
+      VERSION: 0.0.0
       NODE_ENV: production
       CDN: https://s3-${self:provider.region}.amazonaws.com/${self:custom.client.bucketName}
 
