@@ -1,0 +1,39 @@
+---
+service: aws-lambda-edge
+
+frameworkVersion: "^1.33.1"
+
+plugins:
+  - serverless-domain-manager
+  - serverless-finch
+  - serverless-plugin-cloudfront-lambda-edge
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: ${env:AWS_DEFAULT_REGION, 'eu-west-1'}
+  stage: ${opt:stage, env:SERVERLESS_STAGE, 'test'}
+
+functions:
+  app:
+    handler: handlers.index
+    environment:
+      NODE_ENV: production
+      CDN: https://s3-${self:provider.region}.amazonaws.com/${self:custom.client.bucketName}
+
+custom:
+  name: aws-lambda-edge
+  domain: immutableweb.app
+  client:
+    bucketName: immutablewebapps-${self:service}
+    distributionFolder: .bucket
+  customDomain:
+    domainName: ${self:provider.stage}.${self:custom.name}.${self:custom.domain}
+    endpointType: regional
+    createRoute53Record: true
+
+package:
+  exclude:
+    - "*/**"
+  include:
+    - "handlers/*.js"
