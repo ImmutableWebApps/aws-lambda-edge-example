@@ -75,9 +75,9 @@ $ git clone git@github.com:immutablewebapps/aws-lambda-edge.git
 
 [Serverless Credentials for AWS]: https://serverless.com/framework/docs/providers/aws/guide/credentials/
 
-## Development lifecycle
+## Development Flow
 
-### Immutable Asset Deployment
+### Immutable asset deployment
 
 Cut a new version with, e.g.,
 
