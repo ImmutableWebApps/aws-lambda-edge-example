@@ -8,7 +8,7 @@ const serveHandler = require('serve-handler')
 const { createResponse } = require('./handlers/app')
 
 const port = 8080
-const cdnPort = 8081
+const assetPort = 8081
 const host = 'localhost'
 
 const formatHeaders = headers => Object.assign.apply({},
@@ -17,14 +17,14 @@ const formatHeaders = headers => Object.assign.apply({},
     .map(({ key, value }) => ({ [key]: value }))
 )
 
-const cdnServer = http.createServer((req, res) => {
+const assetServer = http.createServer((req, res) => {
   const root = path.resolve(__dirname, 'dist')
   serveHandler(req, res, { public: root })
 })
 
 const server = http.createServer((req, res) => {
   if (req.url === '/favicon.ico') {
-    res.writeHead(302, { location: `http://${host}:${cdnPort}/favicon.ico` })
+    res.writeHead(302, { location: `http://${host}:${assetPort}/favicon.ico` })
     res.end()
     return
   }
@@ -33,5 +33,5 @@ const server = http.createServer((req, res) => {
   res.end(Buffer.from(body, bodyEncoding))
 })
 
-cdnServer.listen(cdnPort)
+assetServer.listen(assetPort)
 server.listen(port, () => { console.log(`http://${host}:${port}`) })

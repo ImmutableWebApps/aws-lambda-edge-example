@@ -2,8 +2,8 @@
 
 const { gzipSync } = require('zlib')
 
-const cdn = process.env.CDN || 'http://localhost:8081'
-const version = process.env.VERSION || ''
+const origin = process.env.ASSET_ORIGIN || 'http://localhost:8081'
+const version = process.env.APP_VERSION || ''
 
 const createContent = root => `
   <!doctype html>
@@ -23,7 +23,7 @@ const createContent = root => `
 `
 
 const createBody = () => {
-  const root = [cdn, version].filter(x => x).join('/')
+  const root = [origin, version].filter(x => x).join('/')
   const content = createContent(root)
   const buffer = gzipSync(content)
   return buffer.toString('base64')
