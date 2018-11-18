@@ -3,8 +3,7 @@
 const http = require('http')
 const path = require('path')
 
-const finalhandler = require('finalhandler')
-const serveStatic = require('serve-static')
+const serveHandler = require('serve-handler')
 
 const { createResponse } = require('./handlers')
 
@@ -18,10 +17,9 @@ const formatHeaders = headers => Object.assign.apply({},
     .map(({ key, value }) => ({ [key]: value }))
 )
 
-const staticHandler = serveStatic(path.resolve(__dirname, 'dist'))
-
 const cdnServer = http.createServer((req, res) => {
-  staticHandler(req, res, finalhandler(req, res))
+  const root = path.resolve(__dirname, 'dist')
+  serveHandler(req, res, { public: root })
 })
 
 const server = http.createServer((req, res) => {
