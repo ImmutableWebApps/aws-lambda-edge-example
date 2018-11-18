@@ -14,7 +14,48 @@ Each Serverless stage selects an app version using
 [Lambda@Edge]: https://aws.amazon.com/lambda/edge/
 [Serverless]: https://serverless.com/
 
-## Initial Setup
+## Development
+
+### Requirements
+
+You will need [jq] and [Node.js] with [npm].
+
+Be sure that all commands run under the correct Node version, e.g.,
+if using [nvm], install the correct version with
+
+```
+$ nvm install
+```
+
+Set the active version for each shell session with
+
+```
+$ nvm use
+```
+
+Install the development dependencies with
+
+```
+$ npm install
+```
+
+[Node.js]: https://nodejs.org/
+[npm]: https://www.npmjs.com/
+[nvm]: https://github.com/creationix/nvm
+[jq]: https://stedolan.github.io/jq/
+
+### Source code
+
+The [source code] is hosted on GitHub.
+Clone the project with
+
+```
+$ git clone git@github.com:immutablewebapps/aws-lambda-edge.git
+```
+
+[source code]: https://github.com/immutablewebapps/aws-lambda-edge
+
+### Initial Setup
 
 0. Setup [Serverless Credentials for AWS] and login to [npm].
 1. Add a hosted zone in Route53 for `immutableweb.app`.
@@ -84,45 +125,6 @@ aws ssm put-parameter --type "String" \
   --name "/aws-lambda-edge/test/appVersion" \
   --value "1.0.0"
 ```
-
-### Source code
-
-The [source code] is hosted on GitHub.
-Clone the project with
-
-```
-$ git clone git@github.com:immutablewebapps/aws-lambda-edge.git
-```
-
-[source code]: https://github.com/immutablewebapps/aws-lambda-edge
-
-### Requirements
-
-You will need [jq] and [Node.js] with [npm].
-
-Be sure that all commands run under the correct Node version, e.g.,
-if using [nvm], install the correct version with
-
-```
-$ nvm install
-```
-
-Set the active version for each shell session with
-
-```
-$ nvm use
-```
-
-Install the development dependencies with
-
-```
-$ npm install
-```
-
-[Node.js]: https://nodejs.org/
-[npm]: https://www.npmjs.com/
-[nvm]: https://github.com/creationix/nvm
-[jq]: https://stedolan.github.io/jq/
 
 ## Contributing
 
