@@ -10,6 +10,10 @@ const { createResponse } = require('./lib')
 const port = 8080
 const assetPort = 8081
 const host = 'localhost'
+const options = {
+  origin: `http://${host}:${assetPort}`,
+  version: ''
+}
 
 const formatHeaders = headers => Object.assign.apply({},
   Object.values(headers)
@@ -23,13 +27,9 @@ const assetServer = http.createServer((req, res) => {
 })
 
 const server = http.createServer((req, res) => {
-  if (req.url === '/favicon.ico') {
-    res.writeHead(302, { location: `http://${host}:${assetPort}/favicon.ico` })
-    res.end()
-    return
-  }
-  const { status, body, bodyEncoding, headers } = createResponse()
+  const { status, body, bodyEncoding, headers } = createResponse(req, options)
   res.writeHead(status, formatHeaders(headers))
+  if (!body) return res.end()
   res.end(Buffer.from(body, bodyEncoding))
 })
 
