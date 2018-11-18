@@ -38,8 +38,7 @@
     "postbuild": "cpr public dist",
     "deploy:assets": "serverless client deploy --no-confirm",
     "predeploy:assets": "cpr dist .bucket/$(jq -r .version < package.json)",
-    "deploy:domain": "serverless create_domain",
-    "deploy:index": "serverless deploy --aws-s3-accelerate",
+    "deploy:app": "serverless deploy --aws-s3-accelerate",
     "client": "parcel src/index.html",
     "preversion": "npm test",
     "postversion": "git push && git push --tags"
@@ -61,7 +60,6 @@
     "parcel-bundler": "^1.10.3",
     "serve-handler": "^5.0.7",
     "serverless": "^1.33.1",
-    "serverless-domain-manager": "^2.6.6",
     "serverless-finch": "^2.3.2",
     "serverless-plugin-cloudfront-lambda-edge": "^2.1.0",
     "standard": "^12.0.1"

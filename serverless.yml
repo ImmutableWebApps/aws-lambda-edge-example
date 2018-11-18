@@ -4,7 +4,6 @@ service: aws-lambda-edge
 frameworkVersion: "^1.33.1"
 
 plugins:
-  - serverless-domain-manager
   - serverless-finch
   - serverless-plugin-cloudfront-lambda-edge
 
@@ -25,13 +24,11 @@ functions:
 custom:
   name: aws-lambda-edge
   domain: immutableweb.app
+  domainName: ${self:provider.stage}.${self:custom.name}.${self:custom.domain}
+  cdnName: cdn.${self:custom.name}.${self:custom.domain}
   client:
     bucketName: immutablewebapps-${self:service}
     distributionFolder: .bucket
-  customDomain:
-    domainName: ${self:provider.stage}.${self:custom.name}.${self:custom.domain}
-    endpointType: regional
-    createRoute53Record: true
 
 package:
   exclude:
