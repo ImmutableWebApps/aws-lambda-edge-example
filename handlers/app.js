@@ -2,7 +2,8 @@
 
 const { gzipSync } = require('zlib')
 
-const origin = process.env.ASSET_ORIGIN || 'http://localhost:8081'
+const domain = process.env.ASSET_DOMAIN
+const origin = domain ? `https://${domain}` : 'http://localhost:8081'
 const version = process.env.APP_VERSION || ''
 
 const createContent = root => `
