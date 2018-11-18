@@ -16,10 +16,6 @@ provider:
 functions:
   app:
     handler: handlers/app
-    environment:
-      NODE_ENV: production
-      APP_VERSION: 0.0.0
-      ASSET_DOMAIN: { 'Fn::GetAtt': [ 'AssetDistribution', 'DomainName' ] }
     lambdaAtEdge:
       distribution: AppDistribution
       eventType: origin-request

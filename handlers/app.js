@@ -2,9 +2,13 @@
 
 const { gzipSync } = require('zlib')
 
-const domain = process.env.ASSET_DOMAIN
-const origin = domain ? `https://${domain}` : 'http://localhost:8081'
-const version = process.env.APP_VERSION || ''
+const getOrigin = () => {
+  return 'https://d1895sbek3z1b1.cloudfront.net'
+}
+
+const getVersion = () => {
+  return '0.0.0'
+}
 
 const createContent = root => `
   <!doctype html>
@@ -23,14 +27,17 @@ const createContent = root => `
   </body>
 `
 
-const createBody = () => {
+const createBody = ({ origin, version }) => {
   const root = [origin, version].filter(x => x).join('/')
   const content = createContent(root)
   const buffer = gzipSync(content)
   return buffer.toString('base64')
 }
 
-const createResponse = () => ({
+const createResponse = ({
+  origin = 'http://localhost:8081',
+  version = ''
+} = {}) => ({
   headers: {
     'content-type': [{
       key: 'content-type',
@@ -41,17 +48,18 @@ const createResponse = () => ({
       value: 'gzip'
     }]
   },
-  body: createBody(),
+  body: createBody({ origin, version }),
   bodyEncoding: 'base64',
   status: '200',
   statusDescription: 'OK'
 })
 
-let response = null
-
 exports.createResponse = createResponse
 
+let response = null
 exports.handler = (event, context, callback) => {
-  if (response === null) response = createResponse()
+  const origin = getOrigin()
+  const version = getVersion()
+  if (response === null) response = createResponse({ origin, version })
   callback(null, response)
 }
