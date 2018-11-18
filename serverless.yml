@@ -17,21 +17,83 @@ functions:
   app:
     handler: handlers/app
     environment:
-      VERSION: 0.0.0
       NODE_ENV: production
-      CDN: https://s3-${self:provider.region}.amazonaws.com/${self:custom.client.bucketName}
+      APP_VERSION: 0.0.0
+      ASSET_DOMAIN: { 'Fn::GetAtt': [ 'AssetDistribution', 'DomainName' ] }
+    lambdaAtEdge:
+      distribution: AppDistribution
+      eventType: origin-request
 
 custom:
-  name: aws-lambda-edge
-  domain: immutableweb.app
-  domainName: ${self:provider.stage}.${self:custom.name}.${self:custom.domain}
-  cdnName: cdn.${self:custom.name}.${self:custom.domain}
+  org: immutablewebapps
+  domain: ${self:service}.immutableweb.app
+  appDomain: ${self:provider.stage}.${self:custom.domain}
+  assetDomain: assets.${self:custom.domain}
   client:
-    bucketName: immutablewebapps-${self:service}
+    bucketName: ${self:custom.org}-${self:service}
     distributionFolder: .bucket
+    objectHeaders:
+      ALL_OBJECTS:
+        - name: cache-control
+          value: 'public, max-age=31536000, immutable'
 
 package:
   exclude:
     - "*/**"
   include:
     - "handlers/*.js"
+
+resources:
+  Resources:
+    AppBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.org}-${self:service}-${self:provider.stage}
+    AppDistribution:
+      Type: AWS::CloudFront::Distribution
+      Properties:
+        DistributionConfig:
+          Enabled: true
+          PriceClass: PriceClass_100
+          HttpVersion: http2
+          ViewerCertificate:
+            CloudFrontDefaultCertificate: true
+          DefaultCacheBehavior:
+            TargetOriginId: AppBucketOrigin
+            ViewerProtocolPolicy: redirect-to-https
+            ForwardedValues:
+              QueryString: true
+              Cookies:
+                Forward: 'all'
+          Origins:
+            - Id: AppBucketOrigin
+              DomainName: { 'Fn::GetAtt': [ 'AppBucket', 'DomainName' ] }
+              S3OriginConfig: {}
+    AssetDistribution:
+      Type: AWS::CloudFront::Distribution
+      Properties:
+        DistributionConfig:
+          Enabled: true
+          PriceClass: PriceClass_100
+          HttpVersion: http2
+          ViewerCertificate:
+            CloudFrontDefaultCertificate: true
+          DefaultCacheBehavior:
+            TargetOriginId: AssetBucketOrigin
+            ViewerProtocolPolicy: redirect-to-https
+            Compress: true
+            ForwardedValues:
+              QueryString: false
+              Cookies:
+                Forward: 'none'
+            AllowedMethods:
+              - GET
+              - HEAD
+              - OPTIONS
+            CachedMethods:
+              - GET
+              - HEAD
+          Origins:
+            - Id: AssetBucketOrigin
+              DomainName: ${self:custom.client.bucketName}.s3.amazonaws.com
+              S3OriginConfig: {}
