@@ -15,7 +15,7 @@ provider:
 
 functions:
   app:
-    handler: handlers/app
+    handler: handlers/app.handler
     lambdaAtEdge:
       distribution: AppDistribution
       eventType: origin-request
