@@ -26,7 +26,11 @@
     "email": "razorx@evansosenko.com"
   },
   "files": [
+    "dist",
+    "handlers",
     "package-lock.json",
+    "public",
+    "server.js",
     "src"
   ],
   "scripts": {
