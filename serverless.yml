@@ -1,7 +1,7 @@
 ---
 service: aws-lambda-edge
 
-frameworkVersion: "^1.33.1"
+frameworkVersion: '^1.33.1'
 
 plugins:
   - serverless-finch
@@ -12,10 +12,21 @@ provider:
   runtime: nodejs8.10
   region: ${env:AWS_DEFAULT_REGION, 'us-east-1'}
   stage: ${opt:stage, env:SERVERLESS_STAGE, 'test'}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - 'ssm:GetParameters'
+      Resource:
+        - 'Fn::Join':
+          - ':'
+          - - 'arn:aws:ssm'
+            - Ref: 'AWS::Region'
+            - Ref: 'AWS::AccountId'
+            - 'parameter/app/${self:service}/${self:provider.stage}/*'
 
 functions:
   app:
-    handler: handlers/app.handler
+    handler: handlers/app.${self:provider.stage}Handler
     lambdaAtEdge:
       distribution: AppDistribution
       eventType: origin-request
@@ -24,7 +35,7 @@ custom:
   org: immutablewebapps
   domain: ${self:service}.immutableweb.app
   appDomain: ${self:provider.stage}.${self:custom.domain}
-  assetDomain: assets.${self:custom.domain}
+  assetDomain: ${self:provider.stage}-assets.${self:custom.domain}
   client:
     bucketName: ${self:custom.org}-${self:service}
     distributionFolder: .bucket
@@ -35,9 +46,10 @@ custom:
 
 package:
   exclude:
-    - "*/**"
+    - '*/**'
   include:
-    - "handlers/*.js"
+    - 'handlers/*.js'
+    - 'lib/*.js'
 
 resources:
   Resources:
@@ -60,7 +72,7 @@ resources:
             ForwardedValues:
               QueryString: true
               Cookies:
-                Forward: 'all'
+                Forward: all
           Origins:
             - Id: AppBucketOrigin
               DomainName: { 'Fn::GetAtt': [ 'AppBucket', 'DomainName' ] }

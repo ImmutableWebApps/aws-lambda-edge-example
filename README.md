@@ -1,25 +1,61 @@
 # Immutable Web App
 
-At the aws-lambda-edge.
+Deploys an immutable single page web app to [AWS] with [Serverless].
+
+All assets are served through [CloudFront]
+and `index.html` is generated dynamically using [Lambda@Edge].
+
+Each Serverless stage selects an app version using
+[AWS Systems Manager] Parameter Store.
+
+[AWS Systems Manager]: https://aws.amazon.com/systems-manager/
+[AWS]: https://aws.amazon.com/
+[CloudFront]: https://aws.amazon.com/cloudfront/
+[Lambda@Edge]: https://aws.amazon.com/lambda/edge/
+[Serverless]: https://serverless.com/
 
 ## Initial Setup
 
-0. Setup [Serverless Credentials for AWS].
-1. Add a hosted zone in Route53 for `example.com`.
+0. Setup [Serverless Credentials for AWS] and login to [npm].
+1. Add a hosted zone in Route53 for `immutableweb.app`.
 2. Create a certificate with Certificate Manager for
-   `app.example.com` and `*.subdomin.example.com`.
+   `aws-lambda-edge.immutableweb.app` and
+   `*.aws-lambda-edge.immutableweb.app`.
+3. Create the parameter for the asset domain,
+   ```
+   aws ssm put-parameter --type "String" \
+     --name "/app/aws-lambda-edge/test/assetDomain" \
+     --value "test-assets.aws-lambda-edge.immutableweb.app"
+   ```
+3. Create the parameter for the app version on the test stage,
+   ```
+   aws ssm put-parameter --type "String" \
+     --name "/app/aws-lambda-edge/test/appVersion" \
+     --value "0.0.0"
+   ```
+4. Build and deploy the initial version with Serverless,
+   ```
+   nvm install
+   npm install
+   npm run build
+   npm publish
+   npm deploy:assets
+   npm deploy:app
+   ```
 
 [Serverless Credentials for AWS]: https://serverless.com/framework/docs/providers/aws/guide/credentials/
 
+## Development lifecycle
+
 ### Immutable Asset Deployment
 
-Cut a new version with
+Cut a new version with, e.g.,
 
 ```
 npm version minor
 ```
 
-Then locally or on CI, publish and deploy the assets
+Then either locally or on CI, publish and deploy the assets
 
 ```
 npm install
@@ -28,12 +64,25 @@ npm publish
 npm deploy:assets
 ```
 
-### App Deployment
+### App deployment
 
-Update the version number in `serverless.yml`, then run
+Deploy the app to Lambda@Edge with
 
 ```
 npm run deploy:app
+```
+
+### Version deployment
+
+Once the app and assets are deployed,
+deploy any version to any stage by updating the corresponding parameter.
+
+For example, use version 1.0.0 on test with
+
+```
+aws ssm put-parameter --type "String" \
+  --name "/aws-lambda-edge/test/appVersion" \
+  --value "1.0.0"
 ```
 
 ### Source code
@@ -49,7 +98,7 @@ $ git clone git@github.com:immutablewebapps/aws-lambda-edge.git
 
 ### Requirements
 
-You will need [Node.js] with [npm].
+You will need [jq] and [Node.js] with [npm].
 
 Be sure that all commands run under the correct Node version, e.g.,
 if using [nvm], install the correct version with
@@ -73,6 +122,7 @@ $ npm install
 [Node.js]: https://nodejs.org/
 [npm]: https://www.npmjs.com/
 [nvm]: https://github.com/creationix/nvm
+[jq]: https://stedolan.github.io/jq/
 
 ## Contributing
 

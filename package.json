@@ -30,6 +30,7 @@
     "handlers",
     "package-lock.json",
     "public",
+    "lib",
     "server.js",
     "src"
   ],
@@ -58,6 +59,7 @@
     "react-dom": "^16.6.1"
   },
   "devDependencies": {
+    "aws-sdk": "2.290.0",
     "babel-eslint": "^10.0.1",
     "cpr": "^3.0.1",
     "del-cli": "^1.1.0",

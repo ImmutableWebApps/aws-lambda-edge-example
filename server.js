@@ -5,7 +5,7 @@ const path = require('path')
 
 const serveHandler = require('serve-handler')
 
-const { createResponse } = require('./handlers/app')
+const { createResponse } = require('./lib')
 
 const port = 8080
 const assetPort = 8081
