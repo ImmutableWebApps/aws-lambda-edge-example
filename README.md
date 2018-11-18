@@ -18,7 +18,7 @@ Deployment of a published version is done by updating a parameter in the store.
 
 ### Requirements
 
-You will need [jq] and [Node.js] with [npm].
+You will need [AWS CLI], [jq] and [Node.js] with [npm].
 
 Be sure that all commands run under the correct Node version, e.g.,
 if using [nvm], install the correct version with
@@ -27,18 +27,7 @@ if using [nvm], install the correct version with
 $ nvm install
 ```
 
-Set the active version for each shell session with
-
-```
-$ nvm use
-```
-
-Install the development dependencies with
-
-```
-$ npm install
-```
-
+[AWS CLI]: https://aws.amazon.com/cli/
 [Node.js]: https://nodejs.org/
 [npm]: https://www.npmjs.com/
 [nvm]: https://github.com/creationix/nvm
@@ -62,19 +51,19 @@ $ git clone git@github.com:immutablewebapps/aws-lambda-edge.git
 2. Create a certificate with Certificate Manager for
    `aws-lambda-edge.immutableweb.app` and
    `*.aws-lambda-edge.immutableweb.app`.
-3. Create the parameter for the asset domain,
+3. Create the parameter for the test asset domain with
    ```
    aws ssm put-parameter --type "String" \
      --name "/app/aws-lambda-edge/test/assetDomain" \
      --value "test-assets.aws-lambda-edge.immutableweb.app"
    ```
-3. Create the parameter for the app version on the test stage,
+3. Create the parameter for the test app version with
    ```
    aws ssm put-parameter --type "String" \
      --name "/app/aws-lambda-edge/test/appVersion" \
      --value "0.0.0"
    ```
-4. Build and deploy the initial version with Serverless,
+4. Build and deploy the initial version with Serverless with
    ```
    nvm install
    npm install
