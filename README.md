@@ -1,4 +1,4 @@
-# Immutable Web App
+# Lambda@Edge Immutable Web App
 
 Deploys an immutable single page web app to [AWS] with [Serverless].
 All assets are served through [CloudFront]
