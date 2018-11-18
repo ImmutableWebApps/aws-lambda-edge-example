@@ -15,7 +15,7 @@ provider:
 
 functions:
   app:
-    handler: handlers.index
+    handler: handlers.app
     environment:
       VERSION: 0.0.0
       NODE_ENV: production

@@ -5,7 +5,7 @@ const path = require('path')
 
 const serveHandler = require('serve-handler')
 
-const { createResponse } = require('./handlers')
+const { createResponse } = require('./handlers/app')
 
 const port = 8080
 const cdnPort = 8081
