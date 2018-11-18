@@ -36,7 +36,7 @@
     "build": "parcel build --no-content-hash src/index.js",
     "prebuild": "del dist",
     "postbuild": "cpr public dist",
-    "deploy:assets": "serverless client deploy --no-confirm",
+    "deploy:assets": "serverless client deploy --no-confirm --no-delete-contents",
     "predeploy:assets": "cpr dist .bucket/$(jq -r .version < package.json)",
     "deploy:app": "serverless deploy --aws-s3-accelerate",
     "client": "parcel src/index.html",
