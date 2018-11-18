@@ -2,6 +2,40 @@
 
 At the aws-lambda-edge.
 
+## Initial Setup
+
+0. Setup [Serverless Credentials for AWS].
+1. Add a hosted zone in Route53 for `example.com`.
+2. Create a certificate with Certificate Manager for
+   `app.example.com` and `*.subdomin.example.com`.
+
+[Serverless Credentials for AWS]: https://serverless.com/framework/docs/providers/aws/guide/credentials/
+
+### Immutable Asset Deployment
+
+Cut a new version with
+
+```
+npm version minor
+```
+
+Then locally or on CI, publish and deploy the assets
+
+```
+npm install
+npm run build
+npm publish
+npm deploy:assets
+```
+
+### App Deployment
+
+Update the version number in `serverless.yml`, then run
+
+```
+npm run deploy:app
+```
+
 ### Source code
 
 The [source code] is hosted on GitHub.
