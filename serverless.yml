@@ -10,7 +10,7 @@ plugins:
 provider:
   name: aws
   runtime: nodejs8.10
-  region: ${env:AWS_DEFAULT_REGION, 'eu-west-1'}
+  region: ${env:AWS_DEFAULT_REGION, 'us-east-1'}
   stage: ${opt:stage, env:SERVERLESS_STAGE, 'test'}
 
 functions:
