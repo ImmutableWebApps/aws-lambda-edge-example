@@ -5,9 +5,9 @@ const { createResponse, getOptions } = require('../lib')
 const name = 'aws-lambda-edge'
 const region = 'us-east-1'
 
-const createHandler = env => {
+const createHandler = stage => {
   return (event, context, callback) => {
-    getOptions({ region, env, name }, (err, options) => {
+    getOptions({ region, stage, name }, (err, options) => {
       const req = formatReq(event)
       if (err) return callback(err)
       const response = createResponse(req, options)
