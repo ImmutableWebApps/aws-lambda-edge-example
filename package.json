@@ -1,6 +1,6 @@
 {
   "name": "@immutablewebapps/aws-lambda-edge-example",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Deploys an immutable single page web app to AWS with Serverless.",
   "main": "src/index",
   "sideEffects": false,
