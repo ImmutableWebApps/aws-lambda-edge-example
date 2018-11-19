@@ -39,16 +39,17 @@ The [source code] is hosted on GitHub.
 Clone the project with
 
 ```
-$ git clone git@github.com:immutablewebapps/aws-lambda-edge.git
+$ git clone git@github.com:immutablewebapps/aws-lambda-edge-example.git
 ```
 
-[source code]: https://github.com/immutablewebapps/aws-lambda-edge
+[source code]: https://github.com/immutablewebapps/aws-lambda-edge-example
 
 ### Initial Setup
 
 _Note: find and replace the following values in this repo
 with custom values to setup a completely independent project:
-`immutablewebapps`, `immutableweb.app` and `aws-lambda-edge`._
+`immutablewebapps`, `immutableweb.app`,
+`aws-lambda-edge-example `and `aws-lambda-edge`._
 
 0. Setup [Serverless Credentials for AWS] and login to [npm]
    and add the organization name to the parameter store
@@ -153,7 +154,7 @@ Please submit and comment on bug reports and feature requests.
 
 To submit a patch:
 
-1. Fork it (https://github.com/immutablewebapps/aws-lambda-edge/fork).
+1. Fork it (https://github.com/immutablewebapps/aws-lambda-edge-example/fork).
 2. Create your feature branch (`git checkout -b my-new-feature`).
 3. Make changes.
 4. Commit your changes (`git commit -am 'Add some feature'`).

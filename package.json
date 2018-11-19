@@ -1,5 +1,5 @@
 {
-  "name": "@immutablewebapps/aws-lambda-edge",
+  "name": "@immutablewebapps/aws-lambda-edge-example",
   "version": "0.1.0",
   "description": "Deploys an immutable single page web app to AWS with Serverless.",
   "main": "src/index",
@@ -17,9 +17,9 @@
     "single page app",
     "webapp"
   ],
-  "homepage": "https://github.com/immutablewebapps/aws-lambda-edge",
-  "bugs": "https://github.com/immutablewebapps/aws-lambda-edge/issues",
-  "repository": "immutablewebapps/aws-lambda-edge",
+  "homepage": "https://github.com/immutablewebapps/aws-lambda-edge-example",
+  "bugs": "https://github.com/immutablewebapps/aws-lambda-edge-example/issues",
+  "repository": "immutablewebapps/aws-lambda-edge-example",
   "license": "Apache-2.0",
   "author": {
     "name": "Evan Sosenko",

@@ -7,4 +7,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/immutablewebapps/aws-lambda-edge/compare/v0.0.1...HEAD
+[Unreleased]: https://github.com/immutablewebapps/aws-lambda-edge-example/compare/v0.0.1...HEAD
