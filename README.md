@@ -142,7 +142,7 @@ deploy any version to any stage by updating the corresponding parameter.
 For example, use version 1.0.0 on test with
 
 ```
-aws ssm put-parameter --type "String" \
+aws ssm put-parameter --overwrite --type "String" \
   --name "/aws-lambda-edge/test/appVersion" \
   --value "1.0.0"
 ```
