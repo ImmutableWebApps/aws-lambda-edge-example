@@ -73,6 +73,7 @@ resources:
           DefaultCacheBehavior:
             TargetOriginId: AppBucketOrigin
             ViewerProtocolPolicy: redirect-to-https
+            MaxTTL: 0
             ForwardedValues:
               QueryString: true
               Cookies:
@@ -107,6 +108,7 @@ resources:
             TargetOriginId: AssetBucketOrigin
             ViewerProtocolPolicy: redirect-to-https
             Compress: true
+            MinTTL: 31536000
             ForwardedValues:
               QueryString: false
               Cookies:
