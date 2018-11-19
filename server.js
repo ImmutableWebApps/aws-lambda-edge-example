@@ -1,6 +1,6 @@
 'use strict'
 
-const http = require('http')
+const { createServer } = require('http')
 const path = require('path')
 
 const serveHandler = require('serve-handler')
@@ -22,12 +22,12 @@ const formatHeaders = headers => Object.assign.apply({},
     .map(({ key, value }) => ({ [key]: value }))
 )
 
-const assetServer = http.createServer((req, res) => {
+const assetServer = createServer((req, res) => {
   const root = path.resolve(__dirname, 'dist')
   serveHandler(req, res, { public: root })
 })
 
-const server = http.createServer((req, res) => {
+const server = createServer((req, res) => {
   const { status, body, bodyEncoding, headers } = createResponse(req, options)
   res.writeHead(status, formatHeaders(headers))
   if (!body) return res.end()
