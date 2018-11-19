@@ -1,7 +1,7 @@
 ---
 service: aws-lambda-edge
 
-frameworkVersion: '^1.33.1'
+frameworkVersion: '^1.33.2'
 
 plugins:
   - serverless-finch

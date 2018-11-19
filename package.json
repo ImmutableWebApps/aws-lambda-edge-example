@@ -65,7 +65,7 @@
     "del-cli": "^1.1.0",
     "parcel-bundler": "^1.10.3",
     "serve-handler": "^5.0.7",
-    "serverless": "^1.33.1",
+    "serverless": "^1.33.2",
     "serverless-finch": "^2.3.2",
     "serverless-plugin-cloudfront-lambda-edge": "^2.1.0",
     "standard": "^12.0.1"
