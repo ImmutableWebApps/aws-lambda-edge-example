@@ -5,7 +5,7 @@ const path = require('path')
 
 const serveHandler = require('serve-handler')
 
-const { createResponse } = require('./lib')
+const { getResponse } = require('./lib')
 
 const port = 8080
 const assetPort = 8081
@@ -28,10 +28,18 @@ const assetServer = createServer((req, res) => {
 })
 
 const server = createServer((req, res) => {
-  const { status, body, bodyEncoding, headers } = createResponse(req, options)
-  res.writeHead(status, formatHeaders(headers))
-  if (!body) return res.end()
-  res.end(Buffer.from(body, bodyEncoding))
+  getResponse(req, options, (err, response) => {
+    if (err) {
+      res.writeHead(500)
+      res.end()
+      return
+    }
+
+    const { status, body, bodyEncoding, headers } = response
+    res.writeHead(status, formatHeaders(headers))
+    if (!body) return res.end()
+    res.end(Buffer.from(body, bodyEncoding))
+  })
 })
 
 assetServer.listen(assetPort)

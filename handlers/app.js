@@ -1,17 +1,17 @@
 'use strict'
 
-const { createResponse, getOptions } = require('../lib')
+const { getResponse, getOptions } = require('../lib')
 
 const name = 'aws-lambda-edge'
 const region = 'us-east-1'
 
 const createHandler = stage => (event, context, callback) => {
-  getOptions({ region, stage, name }, (err, options) => {
-    const req = formatReq(event)
+  const handleRequest = (err, options) => {
     if (err) return callback(err)
-    const response = createResponse(req, options)
-    callback(null, response)
-  })
+    const req = formatReq(event)
+    getResponse(req, options, callback)
+  }
+  getOptions({ region, stage, name }, handleRequest)
 }
 
 const formatReq = event => {
