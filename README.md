@@ -77,19 +77,21 @@ with custom values to setup a completely independent project:
      --name "/app/aws-lambda-edge/certificateId" \
      --value "<certificate-identifier>"
    ```
-3. Create the parameter for the test asset domain with
+3. Create the parameters for the test stage with
    ```
    aws ssm put-parameter --type "String" \
      --name "/app/aws-lambda-edge/test/assetDomain" \
      --value "test-assets.aws-lambda-edge.immutableweb.app"
-   ```
-4. Create the parameter for the test app version with
-   ```
+
    aws ssm put-parameter --type "String" \
      --name "/app/aws-lambda-edge/test/appVersion" \
      --value "0.0.0"
+
+   aws ssm put-parameter --type "String" \
+     --name "/app/aws-lambda-edge/test/appConfig" \
+     --value '{"title":"Lambda@Edge Immutable Web App"}'
    ```
-5. Build and deploy the initial version with
+4. Build and deploy the initial version with
    ```
    nvm install
    npm install

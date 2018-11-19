@@ -11,6 +11,7 @@ const port = 8080
 const assetPort = 8081
 const host = 'localhost'
 const options = {
+  config: '{"title":"Lambda@Edge Immutable Web App"}',
   origin: `http://${host}:${assetPort}`,
   version: ''
 }
