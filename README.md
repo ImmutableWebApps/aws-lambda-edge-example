@@ -3,8 +3,8 @@
 Deploys an immutable single page web app to [AWS] with [Serverless].
 All assets are served through [CloudFront]
 and `index.html` is generated dynamically using [Lambda@Edge].
-Each Serverless stage selects an app version using
-[AWS Systems Manager] Parameter Store.
+Each Serverless stage selects an app version and environment configuration
+using [AWS Systems Manager] Parameter Store.
 Immutable app versions are built, uploaded to S3, and published to npm.
 Deployment of a published version is done by updating a parameter in the store.
 
