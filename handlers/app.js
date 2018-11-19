@@ -21,3 +21,4 @@ const formatReq = event => {
 }
 
 exports.testHandler = createHandler('test')
+exports.prodHandler = createHandler('prod')

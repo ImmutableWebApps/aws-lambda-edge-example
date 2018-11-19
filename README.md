@@ -80,6 +80,10 @@ with custom values to setup a completely independent project:
 3. Create the parameters for the test stage with
    ```
    aws ssm put-parameter --type "String" \
+     --name "/app/aws-lambda-edge/test/appDomain" \
+     --value "test.aws-lambda-edge.immutableweb.app"
+
+   aws ssm put-parameter --type "String" \
      --name "/app/aws-lambda-edge/test/assetDomain" \
      --value "test-assets.aws-lambda-edge.immutableweb.app"
 

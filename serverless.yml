@@ -36,7 +36,7 @@ custom:
   domain: ${ssm:/app/${self:service}/domain}
   hostedZoneId: ${ssm:/app/${self:service}/hostedZoneId}
   certificateId: ${ssm:/app/${self:service}/certificateId}
-  appDomain: ${self:provider.stage}.${self:custom.domain}
+  appDomain: ${ssm:/app/${self:service}/${self:provider.stage}/appDomain}
   assetDomain: ${ssm:/app/${self:service}/${self:provider.stage}/assetDomain}
   client:
     bucketName: ${self:custom.organization}-${self:service}
