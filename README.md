@@ -58,15 +58,15 @@ with custom values to setup a completely independent project:
      --value "immutablewebapps"
    ```
 1. Add a hosted zone in Route53 for `immutableweb.app` and
-   add the domain and Zone ID to the parameter store with
+   add the Zone ID and app domain to the parameter store with
    ```
-   aws ssm put-parameter --type "String" \
-     --name "/app/aws-lambda-edge/domain" \
-     --value "aws-lambda-edge.immutableweb.app"
-
    aws ssm put-parameter --type "String" \
      --name "/app/aws-lambda-edge/hostedZoneId" \
      --value "<zone-id>"
+
+   aws ssm put-parameter --type "String" \
+     --name "/app/aws-lambda-edge/domain" \
+     --value "aws-lambda-edge.immutableweb.app"
    ```
 2. Create a certificate with Certificate Manager for
    `aws-lambda-edge.immutableweb.app` and
