@@ -28,17 +28,27 @@ const assetServer = createServer((req, res) => {
 })
 
 const server = createServer((req, res) => {
-  getResponse(req, options, (err, response) => {
-    if (err) {
-      res.writeHead(500)
-      res.end()
-      return
-    }
+  const handleError = err => {
+    console.error(err)
+    res.writeHead(500)
+    res.end()
+  }
 
+  const handleResponse = response => {
     const { status, body, bodyEncoding, headers } = response
     res.writeHead(status, formatHeaders(headers))
     if (!body) return res.end()
-    res.end(Buffer.from(body, bodyEncoding))
+    const data = Buffer.from(body, bodyEncoding)
+    res.end(data)
+  }
+
+  getResponse(req, options, (err, response) => {
+    try {
+      if (err) handleError(err)
+      handleResponse(response)
+    } catch (error) {
+      handleError(error)
+    }
   })
 })
 
