@@ -57,7 +57,6 @@ with custom values to setup a completely independent project:
      --name "/app/aws-lambda-edge/organization" \
      --value "immutablewebapps"
    ```
-  domain: aws-lambda-edge.immutableweb.app
 1. Add a hosted zone in Route53 for `immutableweb.app` and
    add the domain and Zone ID to the parameter store with
    ```
