@@ -7,9 +7,13 @@ const region = 'us-east-1'
 
 const createHandler = stage => (event, context, callback) => {
   const handleRequest = (err, options) => {
-    if (err) return callback(err)
-    const req = formatReq(event)
-    getResponse(req, options, callback)
+    try {
+      if (err) return callback(err)
+      const req = formatReq(event)
+      getResponse(req, options, callback)
+    } catch (error) {
+      callback(error)
+    }
   }
   getOptions({ region, stage, name }, handleRequest)
 }

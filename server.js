@@ -44,7 +44,7 @@ const server = createServer((req, res) => {
 
   getResponse(req, options, (err, response) => {
     try {
-      if (err) handleError(err)
+      if (err) return handleError(err)
       handleResponse(response)
     } catch (error) {
       handleError(error)
