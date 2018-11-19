@@ -90,7 +90,7 @@ with custom values to setup a completely independent project:
 
    aws ssm put-parameter --type "String" \
      --name "/app/aws-lambda-edge/test/appVersion" \
-     --value "0.0.1"
+     --value "0.2.0"
 
    aws ssm put-parameter --type "String" \
      --name "/app/aws-lambda-edge/test/appConfig" \
