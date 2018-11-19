@@ -81,6 +81,8 @@ resources:
             TargetOriginId: AppBucketOrigin
             ViewerProtocolPolicy: redirect-to-https
             MaxTTL: 0
+            MinTTL: 0
+            DefaultTTL: 0
             ForwardedValues:
               QueryString: true
               Cookies:
@@ -122,6 +124,8 @@ resources:
             ViewerProtocolPolicy: redirect-to-https
             Compress: true
             MinTTL: 31536000
+            MaxTTL: 31536000
+            DefaultTTL: 31536000
             ForwardedValues:
               QueryString: false
               Cookies:
