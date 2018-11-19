@@ -84,13 +84,13 @@ with custom values to setup a completely independent project:
      --name "/app/aws-lambda-edge/test/assetDomain" \
      --value "test-assets.aws-lambda-edge.immutableweb.app"
    ```
-3. Create the parameter for the test app version with
+4. Create the parameter for the test app version with
    ```
    aws ssm put-parameter --type "String" \
      --name "/app/aws-lambda-edge/test/appVersion" \
      --value "0.0.0"
    ```
-4. Build and deploy the initial version with Serverless with
+5. Build and deploy the initial version with
    ```
    nvm install
    npm install
