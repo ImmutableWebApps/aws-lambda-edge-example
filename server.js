@@ -10,8 +10,12 @@ const { getResponse } = require('./lib')
 const port = 8080
 const assetPort = 8081
 const host = 'localhost'
+
+const config = {
+  title: 'Lambda@Edge Immutable Web App'
+}
 const options = {
-  config: '{"title":"Lambda@Edge Immutable Web App"}',
+  config: JSON.stringify(config),
   origin: `http://${host}:${assetPort}`,
   version: ''
 }
