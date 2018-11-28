@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.4.0] / 2018-11-28
+
+### Added
+
+- Cache template.
+
+### Fixed
+
+- Reading cookie header on Lambda.
+
 ## [0.3.0] / 2018-11-28
 
 ### Changed
@@ -29,5 +39,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 - Initial release.
 
-[Unreleased]: https://github.com/immutablewebapps/aws-lambda-edge-example/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/immutablewebapps/aws-lambda-edge-example/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/immutablewebapps/aws-lambda-edge-example/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/immutablewebapps/aws-lambda-edge-example/compare/v0.2.0...v0.3.0
