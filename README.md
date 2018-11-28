@@ -168,7 +168,7 @@ For example, use version 1.0.0 by default on the live stage
 
 ```
 aws ssm put-parameter --overwrite --type "String" \
-  --name "/aws-lambda-edge/live/appVersion" \
+  --name "/app/aws-lambda-edge/live/appVersion" \
   --value "1.0.0"
 ```
 
