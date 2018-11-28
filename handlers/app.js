@@ -31,7 +31,7 @@ const formatReq = event => {
 const formatHeaders = headers => Object.assign.apply({},
   Object.values(headers)
     .map(v => v[0])
-    .map(({ key, value }) => ({ [key]: value }))
+    .map(({ key, value }) => ({ [key.toLowerCase()]: value }))
 )
 
 exports.liveHandler = createHandler('live')
