@@ -120,6 +120,7 @@ with custom values to setup a completely independent project:
      --name "/app/aws-lambda-edge/live/appConfig" \
      --value '{"title":"Lambda@Edge Immutable Web App"}'
 
+   npm run build
    npm run deploy:assets
    npm run deploy:app
    ```
