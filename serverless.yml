@@ -35,7 +35,7 @@ custom:
   organization: ${ssm:/app/${self:service}/organization}
   hostedZoneId: ${ssm:/app/${self:service}/hostedZoneId}
   certificateId: ${ssm:/app/${self:service}/certificateId}
-  appDomains: ${ssm:/app/${self:service}/${self:provider.stage}/appDomains}
+  appDomain: ${ssm:/app/${self:service}/${self:provider.stage}/appDomain}
   assetDomain: ${ssm:/app/${self:service}/${self:provider.stage}/assetDomain}
   client:
     bucketName: ${self:custom.organization}-${self:service}-${self:provider.stage}
@@ -106,9 +106,7 @@ resources:
           PriceClass: PriceClass_100
           HttpVersion: http2
           Aliases:
-            'Fn::Split': [ ",", "${ssm:some_value}" ] }
-              - ','
-              - ${self:custom.appDomains}
+            - ${self:custom.appDomain}
           ViewerCertificate:
             SslSupportMethod: sni-only
             AcmCertificateArn:
