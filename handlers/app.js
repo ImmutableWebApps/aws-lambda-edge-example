@@ -19,9 +19,20 @@ const createHandler = stage => (event, context, callback) => {
 }
 
 const formatReq = event => {
-  const url = event.Records[0].cf.request.uri
-  return { url }
+  const request = event.Records[0].cf.request
+  const url = request.uri
+  const headers = formatHeaders(request.headers)
+  return {
+    url,
+    headers
+  }
 }
+
+const formatHeaders = headers => Object.assign.apply({},
+  Object.values(headers)
+    .map(v => v[0])
+    .map(({ key, value }) => ({ [key]: value }))
+)
 
 exports.liveHandler = createHandler('live')
 exports.experimentalHandler = createHandler('experimental')
