@@ -98,8 +98,8 @@ with custom values to setup a completely independent project:
    npm install
    npm run build
    npm publish
-   npm deploy:assets -- --stage experimental
-   npm deploy:app -- --stage experimental
+   npm run deploy:assets -- --stage experimental
+   npm run deploy:app -- --stage experimental
    ```
 5. Repeat steps 3 and 4 for the live stage.
 
@@ -121,7 +121,7 @@ Then either locally or on CI, publish and deploy the assets
 npm install
 npm run build
 npm publish
-npm deploy:assets
+npm run deploy:assets
 ```
 
 ### App deployment
