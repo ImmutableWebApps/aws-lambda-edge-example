@@ -39,7 +39,7 @@ custom:
   appDomain: ${ssm:/app/${self:service}/${self:provider.stage}/appDomain}
   assetDomain: ${ssm:/app/${self:service}/${self:provider.stage}/assetDomain}
   client:
-    bucketName: ${self:custom.organization}-${self:service}
+    bucketName: ${self:custom.organization}-${self:service}-${self:provider.stage}
     distributionFolder: .bucket
     objectHeaders:
       ALL_OBJECTS:
@@ -59,6 +59,46 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${self:custom.organization}-${self:service}-${self:provider.stage}
+    AppDistributionIdentity:
+      Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+      Properties:
+        CloudFrontOriginAccessIdentityConfig:
+          Comment: ${self:custom.organization}-${self:service}-app-${self:provider.stage}
+    AppBucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket: { Ref: 'AppBucket' }
+        PolicyDocument:
+          Statement:
+            - Effect: Allow
+              Principal: AWS
+              Action:
+                - 's3:GetObject'
+              Resource:
+                'Fn::Join':
+                  - ''
+                  - - 'arn:aws:s3:::'
+                    - Ref: 'AppBucket'
+                    - '/*'
+              Identifiers:
+                - 'Fn:Join':
+                  - ''
+                  - - 'origin-access-identity/cloudfront/'
+                    - Ref: 'AppDistributionIdentity'
+            - Effect: Allow
+              Principal: AWS
+              Action:
+                - 's3:ListBucket'
+              Resource:
+                'Fn::Join':
+                  - ''
+                  - - 'arn:aws:s3:::'
+                    - Ref: 'AppBucket'
+              Identifiers:
+                - 'Fn:Join':
+                  - ''
+                  - - 'origin-access-identity/cloudfront/'
+                    - Ref: 'AppDistributionIdentity'
     AppDistribution:
       Type: AWS::CloudFront::Distribution
       Properties:
@@ -90,7 +130,12 @@ resources:
           Origins:
             - Id: AppBucketOrigin
               DomainName: { 'Fn::GetAtt': [ 'AppBucket', 'DomainName' ] }
-              S3OriginConfig: {}
+              S3OriginConfig:
+                OriginAccessIdentity:
+                  'Fn:Join':
+                    - ''
+                    - - 'origin-access-identity/cloudfront/'
+                      - Ref: 'AppDistributionIdentity'
     AppRecord:
       Type: AWS::Route53::RecordSetGroup
       Properties:
@@ -101,6 +146,46 @@ resources:
             AliasTarget:
               HostedZoneId: Z2FDTNDATAQYW2
               DNSName: { 'Fn::GetAtt': [ 'AppDistribution', 'DomainName' ] }
+    AssetDistributionIdentity:
+      Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+      Properties:
+        CloudFrontOriginAccessIdentityConfig:
+          Comment: ${self:custom.organization}-${self:service}-asset-${self:provider.stage}
+    AssetBucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket: ${self:custom.client.bucketName}
+        PolicyDocument:
+          Statement:
+            - Effect: Allow
+              Principal: AWS
+              Action:
+                - 's3:GetObject'
+              Resource:
+                'Fn::Join':
+                  - ''
+                  - - 'arn:aws:s3:::'
+                    - ${self:custom.client.bucketName}
+                    - '/*'
+              Identifiers:
+                - 'Fn:Join':
+                  - ''
+                  - - 'origin-access-identity/cloudfront/'
+                    - Ref: 'AssetDistributionIdentity'
+            - Effect: Allow
+              Principal: AWS
+              Action:
+                - 's3:ListBucket'
+              Resource:
+                'Fn::Join':
+                  - ''
+                  - - 'arn:aws:s3:::'
+                    - ${self:custom.client.bucketName}
+              Identifiers:
+                - 'Fn:Join':
+                  - ''
+                  - - 'origin-access-identity/cloudfront/'
+                    - Ref: 'AssetDistributionIdentity'
     AssetDistribution:
       Type: AWS::CloudFront::Distribution
       Properties:
@@ -140,7 +225,12 @@ resources:
           Origins:
             - Id: AssetBucketOrigin
               DomainName: ${self:custom.client.bucketName}.s3.amazonaws.com
-              S3OriginConfig: {}
+              S3OriginConfig:
+                OriginAccessIdentity:
+                  'Fn:Join':
+                    - ''
+                    - - 'origin-access-identity/cloudfront/'
+                      - Ref: 'AssetDistributionIdentity'
     AssetRecord:
       Type: AWS::Route53::RecordSetGroup
       Properties:
