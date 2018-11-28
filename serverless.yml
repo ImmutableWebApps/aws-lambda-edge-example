@@ -11,7 +11,7 @@ provider:
   name: aws
   runtime: nodejs8.10
   region: ${env:AWS_DEFAULT_REGION, 'us-east-1'}
-  stage: ${opt:stage, env:SERVERLESS_STAGE, 'test'}
+  stage: ${opt:stage, env:SERVERLESS_STAGE, 'experimental'}
   iamRoleStatements:
     - Effect: Allow
       Action:

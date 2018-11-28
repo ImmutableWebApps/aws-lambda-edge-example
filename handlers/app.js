@@ -23,5 +23,5 @@ const formatReq = event => {
   return { url }
 }
 
-exports.testHandler = createHandler('test')
-exports.prodHandler = createHandler('prod')
+exports.experimentalHandler = createHandler('experimental')
+exports.liveHandler = createHandler('live')
