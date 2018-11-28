@@ -51,7 +51,7 @@ package:
   include:
     - 'handlers/*.js'
     - 'lib/*.js'
-    - 'node_modules/mustache/*/**'
+    - 'node_modules/mustache/mustache.js'
 
 resources:
   Resources:
