@@ -121,7 +121,7 @@ resources:
             ViewerProtocolPolicy: redirect-to-https
             MinTTL: 5
             MaxTTL: 5
-            DefaultTTL: 0
+            DefaultTTL: 5
             ForwardedValues:
               QueryString: true
               Cookies:
