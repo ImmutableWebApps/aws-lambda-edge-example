@@ -39,7 +39,7 @@
     "pretest": "npm run lint",
     "lint": "standard",
     "build": "parcel build --no-content-hash src/index.js",
-    "prebuild": "del dist",
+    "prebuild": "del dist .bucket",
     "postbuild": "cpr public dist",
     "deploy:assets": "serverless client deploy --no-confirm --no-delete-contents --no-policy-change",
     "predeploy:assets": "cpr dist .bucket/$(jq -r .version < package.json)",
