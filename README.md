@@ -77,7 +77,7 @@ with custom values to setup a completely independent project:
 3. Create the parameters for the experimental stage with
    ```
    aws ssm put-parameter --type "String" \
-     --name "/app/aws-lambda-edge/experimental/appDomains" \
+     --name "/app/aws-lambda-edge/experimental/appDomain" \
      --value "dev.aws-lambda-edge.immutableweb.app"
 
    aws ssm put-parameter --type "String" \
