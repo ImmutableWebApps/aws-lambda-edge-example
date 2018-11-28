@@ -193,6 +193,7 @@ resources:
           Enabled: true
           PriceClass: PriceClass_100
           HttpVersion: http2
+          DefaultRootObject: index.html
           Aliases:
             - ${self:custom.assetDomain}
           ViewerCertificate:
