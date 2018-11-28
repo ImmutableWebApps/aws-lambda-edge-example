@@ -80,7 +80,7 @@ resources:
                     - Ref: 'AppBucket'
                     - '/*'
               Identifiers:
-                - 'Fn:Join':
+                - 'Fn::Join':
                   - ''
                   - - 'origin-access-identity/cloudfront/'
                     - Ref: 'AppDistributionIdentity'
@@ -94,7 +94,7 @@ resources:
                   - - 'arn:aws:s3:::'
                     - Ref: 'AppBucket'
               Identifiers:
-                - 'Fn:Join':
+                - 'Fn::Join':
                   - ''
                   - - 'origin-access-identity/cloudfront/'
                     - Ref: 'AppDistributionIdentity'
@@ -131,7 +131,7 @@ resources:
               DomainName: { 'Fn::GetAtt': [ 'AppBucket', 'DomainName' ] }
               S3OriginConfig:
                 OriginAccessIdentity:
-                  'Fn:Join':
+                  'Fn::Join':
                     - ''
                     - - 'origin-access-identity/cloudfront/'
                       - Ref: 'AppDistributionIdentity'
@@ -167,7 +167,7 @@ resources:
                     - ${self:custom.client.bucketName}
                     - '/*'
               Identifiers:
-                - 'Fn:Join':
+                - 'Fn::Join':
                   - ''
                   - - 'origin-access-identity/cloudfront/'
                     - Ref: 'AssetDistributionIdentity'
@@ -181,7 +181,7 @@ resources:
                   - - 'arn:aws:s3:::'
                     - ${self:custom.client.bucketName}
               Identifiers:
-                - 'Fn:Join':
+                - 'Fn::Join':
                   - ''
                   - - 'origin-access-identity/cloudfront/'
                     - Ref: 'AssetDistributionIdentity'
@@ -226,7 +226,7 @@ resources:
               DomainName: ${self:custom.client.bucketName}.s3.amazonaws.com
               S3OriginConfig:
                 OriginAccessIdentity:
-                  'Fn:Join':
+                  'Fn::Join':
                     - ''
                     - - 'origin-access-identity/cloudfront/'
                       - Ref: 'AssetDistributionIdentity'
