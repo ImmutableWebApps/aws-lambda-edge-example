@@ -38,7 +38,7 @@ custom:
   appDomain: ${ssm:/app/${self:service}/${self:provider.stage}/appDomain}
   assetDomain: ${ssm:/app/${self:service}/${self:provider.stage}/assetDomain}
   client:
-    bucketName: ${self:custom.organization}-${self:service}-${self:provider.stage}
+    bucketName: ${self:custom.organization}-${self:service}-assets-${self:provider.stage}
     distributionFolder: .bucket
     objectHeaders:
       ALL_OBJECTS:
@@ -57,7 +57,7 @@ resources:
     AppBucket:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: ${self:custom.organization}-${self:service}-${self:provider.stage}
+        BucketName: ${self:custom.organization}-${self:service}-app-${self:provider.stage}
     AppDistributionIdentity:
       Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
       Properties:
