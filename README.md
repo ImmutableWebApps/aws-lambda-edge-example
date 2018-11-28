@@ -51,21 +51,21 @@ with custom values to setup a completely independent project:
 `immutablewebapps`, `immutableweb.app`,
 `aws-lambda-edge-example `and `aws-lambda-edge`._
 
-0. Setup [Serverless Credentials for AWS] and login to [npm]
+1. Setup [Serverless Credentials for AWS] and login to [npm]
    and add the organization name to the parameter store
    ```
    aws ssm put-parameter --type "String" \
      --name "/app/aws-lambda-edge/organization" \
      --value "immutablewebapps"
    ```
-1. Add a hosted zone in Route53 for `immutableweb.app` and
+2. Add a hosted zone in Route53 for `immutableweb.app` and
    add the Zone ID and app domain to the parameter store with
    ```
    aws ssm put-parameter --type "String" \
      --name "/app/aws-lambda-edge/hostedZoneId" \
      --value "<zone-id>"
    ```
-2. Create a certificate with Certificate Manager for
+3. Create a certificate with Certificate Manager for
    `aws-lambda-edge.immutableweb.app` and
    `*.aws-lambda-edge.immutableweb.app`
    and add the certificate identifier to the parameter store with
@@ -74,7 +74,7 @@ with custom values to setup a completely independent project:
      --name "/app/aws-lambda-edge/certificateId" \
      --value "<certificate-identifier>"
    ```
-3. Create the parameters for the experimental stage with
+4. Create the parameters for the experimental stage with
    ```
    aws ssm put-parameter --type "String" \
      --name "/app/aws-lambda-edge/experimental/appDomain" \
@@ -92,7 +92,7 @@ with custom values to setup a completely independent project:
      --name "/app/aws-lambda-edge/experimental/appConfig" \
      --value '{"title":"Lambda@Edge Immutable Web App"}'
    ```
-4. Build and deploy the initial version with
+5. Build and deploy the initial version with
    ```
    nvm install
    npm install
@@ -101,7 +101,7 @@ with custom values to setup a completely independent project:
    npm run deploy:assets -- --stage experimental
    npm run deploy:app -- --stage experimental
    ```
-5. Repeat steps 3 and 4 for the live stage.
+6. Repeat steps 4 and 5 for the live stage.
 
 [Serverless Credentials for AWS]: https://serverless.com/framework/docs/providers/aws/guide/credentials/
 
