@@ -120,7 +120,7 @@ resources:
             TargetOriginId: AppBucketOrigin
             ViewerProtocolPolicy: redirect-to-https
             MinTTL: 5
-            MaxTTL: 0
+            MaxTTL: 5
             DefaultTTL: 0
             ForwardedValues:
               QueryString: true
