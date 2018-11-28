@@ -64,10 +64,6 @@ with custom values to setup a completely independent project:
    aws ssm put-parameter --type "String" \
      --name "/app/aws-lambda-edge/hostedZoneId" \
      --value "<zone-id>"
-
-   aws ssm put-parameter --type "String" \
-     --name "/app/aws-lambda-edge/domain" \
-     --value "aws-lambda-edge.immutableweb.app"
    ```
 2. Create a certificate with Certificate Manager for
    `aws-lambda-edge.immutableweb.app` and
