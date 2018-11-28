@@ -71,7 +71,12 @@ resources:
         PolicyDocument:
           Statement:
             - Effect: Allow
-              Principal: AWS
+              Principal:
+                AWS:
+                  - 'Fn::Join':
+                    - ' '
+                    - - 'arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity'
+                      - Ref: 'AppDistributionIdentity'
               Action:
                 - 's3:GetObject'
               Resource:
@@ -80,13 +85,13 @@ resources:
                   - - 'arn:aws:s3:::'
                     - Ref: 'AppBucket'
                     - '/*'
-              Identifiers:
-                - 'Fn::Join':
-                  - ''
-                  - - 'origin-access-identity/cloudfront/'
-                    - Ref: 'AppDistributionIdentity'
             - Effect: Allow
-              Principal: AWS
+              Principal:
+                AWS:
+                  - 'Fn::Join':
+                    - ' '
+                    - - 'arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity'
+                      - Ref: 'AppDistributionIdentity'
               Action:
                 - 's3:ListBucket'
               Resource:
@@ -94,11 +99,6 @@ resources:
                   - ''
                   - - 'arn:aws:s3:::'
                     - Ref: 'AppBucket'
-              Identifiers:
-                - 'Fn::Join':
-                  - ''
-                  - - 'origin-access-identity/cloudfront/'
-                    - Ref: 'AppDistributionIdentity'
     AppDistribution:
       Type: AWS::CloudFront::Distribution
       Properties:
@@ -158,7 +158,12 @@ resources:
         PolicyDocument:
           Statement:
             - Effect: Allow
-              Principal: AWS
+              Principal:
+                AWS:
+                  - 'Fn::Join':
+                    - ' '
+                    - - 'arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity'
+                      - Ref: 'AssetDistributionIdentity'
               Action:
                 - 's3:GetObject'
               Resource:
@@ -167,13 +172,13 @@ resources:
                   - - 'arn:aws:s3:::'
                     - ${self:custom.client.bucketName}
                     - '/*'
-              Identifiers:
-                - 'Fn::Join':
-                  - ''
-                  - - 'origin-access-identity/cloudfront/'
-                    - Ref: 'AssetDistributionIdentity'
             - Effect: Allow
-              Principal: AWS
+              Principal:
+                AWS:
+                  - 'Fn::Join':
+                    - ' '
+                    - - 'arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity'
+                      - Ref: 'AssetDistributionIdentity'
               Action:
                 - 's3:ListBucket'
               Resource:
@@ -181,11 +186,6 @@ resources:
                   - ''
                   - - 'arn:aws:s3:::'
                     - ${self:custom.client.bucketName}
-              Identifiers:
-                - 'Fn::Join':
-                  - ''
-                  - - 'origin-access-identity/cloudfront/'
-                    - Ref: 'AssetDistributionIdentity'
     AssetDistribution:
       Type: AWS::CloudFront::Distribution
       Properties:
