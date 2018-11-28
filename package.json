@@ -55,6 +55,7 @@
     "parser": "babel-eslint"
   },
   "dependencies": {
+    "mustache": "^3.0.1",
     "react": "^16.6.1",
     "react-dom": "^16.6.1"
   },
