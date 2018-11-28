@@ -91,7 +91,7 @@ with custom values to setup a completely independent project:
 
    aws ssm put-parameter --type "String" \
      --name "/app/aws-lambda-edge/experimental/appConfig" \
-     --value '{"title":"Lambda@Edge Immutable Web App"}'
+     --value '{"title":"Lambda@Edge Immutable Web App (Experimental)"}'
    ```
 5. Build and deploy the initial version with
    ```
@@ -102,7 +102,27 @@ with custom values to setup a completely independent project:
    npm run deploy:assets -- --stage experimental
    npm run deploy:app -- --stage experimental
    ```
-6. Repeat steps 4 and 5 for the live stage.
+6. Configure and deploy the live stage with
+   ```
+   aws ssm put-parameter --type "String" \
+     --name "/app/aws-lambda-edge/live/appDomain" \
+     --value "aws-lambda-edge.immutableweb.app"
+
+   aws ssm put-parameter --type "String" \
+     --name "/app/aws-lambda-edge/live/assetDomain" \
+     --value "assets.aws-lambda-edge.immutableweb.app"
+
+   aws ssm put-parameter --type "String" \
+     --name "/app/aws-lambda-edge/live/appVersion" \
+     --value "0.2.0"
+
+   aws ssm put-parameter --type "String" \
+     --name "/app/aws-lambda-edge/live/appConfig" \
+     --value '{"title":"Lambda@Edge Immutable Web App"}'
+
+   npm run deploy:assets -- --stage experimental
+   npm run deploy:app -- --stage experimental
+   ```
 
 _Note: the experimental stage is completely isolated from the live stage,
 and should be used for testing changes to the Serverless configuration
