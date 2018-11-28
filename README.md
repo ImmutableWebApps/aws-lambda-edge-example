@@ -3,7 +3,7 @@
 Deploys an immutable single page web app to [AWS] with [Serverless].
 All assets are served through [CloudFront]
 and `index.html` is generated dynamically using [Lambda@Edge].
-Each Serverless stage selects an app version and environment configuration
+Each Serverless stage selects a default app version and environment configuration
 using [AWS Systems Manager] Parameter Store.
 Immutable app versions are built, uploaded to S3, and published to npm.
 Deployment of a published version is done by updating a parameter in the store.
@@ -74,22 +74,22 @@ with custom values to setup a completely independent project:
      --name "/app/aws-lambda-edge/certificateId" \
      --value "<certificate-identifier>"
    ```
-3. Create the parameters for the test stage with
+3. Create the parameters for the experimental stage with
    ```
    aws ssm put-parameter --type "String" \
-     --name "/app/aws-lambda-edge/test/appDomain" \
-     --value "test.aws-lambda-edge.immutableweb.app"
+     --name "/app/aws-lambda-edge/experimental/appDomains" \
+     --value "dev.aws-lambda-edge.immutableweb.app"
 
    aws ssm put-parameter --type "String" \
-     --name "/app/aws-lambda-edge/test/assetDomain" \
-     --value "test-assets.aws-lambda-edge.immutableweb.app"
+     --name "/app/aws-lambda-edge/experimental/assetDomain" \
+     --value "dev-assets.aws-lambda-edge.immutableweb.app"
 
    aws ssm put-parameter --type "String" \
-     --name "/app/aws-lambda-edge/test/appVersion" \
+     --name "/app/aws-lambda-edge/experimental/appVersion" \
      --value "0.2.0"
 
    aws ssm put-parameter --type "String" \
-     --name "/app/aws-lambda-edge/test/appConfig" \
+     --name "/app/aws-lambda-edge/experimental/appConfig" \
      --value '{"title":"Lambda@Edge Immutable Web App"}'
    ```
 4. Build and deploy the initial version with
@@ -98,9 +98,10 @@ with custom values to setup a completely independent project:
    npm install
    npm run build
    npm publish
-   npm deploy:assets
-   npm deploy:app
+   npm deploy:assets -- --stage experimental
+   npm deploy:app -- --stage experimental
    ```
+5. Repeat steps 3 and 4 for the live stage.
 
 [Serverless Credentials for AWS]: https://serverless.com/framework/docs/providers/aws/guide/credentials/
 
@@ -134,13 +135,13 @@ npm run deploy:app
 ### Version deployment
 
 Once the app and assets are deployed,
-deploy any version to any stage by updating the corresponding parameter.
+deploy any version by updating the corresponding parameter.
 
-For example, use version 1.0.0 on test with
+For example, use version 1.0.0 by default on the live stage
 
 ```
 aws ssm put-parameter --overwrite --type "String" \
-  --name "/aws-lambda-edge/test/appVersion" \
+  --name "/aws-lambda-edge/live/appVersion" \
   --value "1.0.0"
 ```
 
