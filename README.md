@@ -104,6 +104,11 @@ with custom values to setup a completely independent project:
    ```
 6. Repeat steps 4 and 5 for the live stage.
 
+_Note: the experimental stage is completely isolated from the live stage,
+and should be used for testing changes to the Serverless configuration
+and lambda before deploying to the live stage.
+Otherwise, all application versions may be tested directly on the live stage._
+
 [Serverless Credentials for AWS]: https://serverless.com/framework/docs/providers/aws/guide/credentials/
 
 ## Development Flow
