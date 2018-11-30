@@ -87,7 +87,7 @@ with custom values to setup a completely independent project:
 
    aws ssm put-parameter --type "String" \
      --name "/app/aws-lambda-edge/experimental/appVersion" \
-     --value "1.0.0"
+     --value "1.0.0-rc.0"
 
    aws ssm put-parameter --type "String" \
      --name "/app/aws-lambda-edge/experimental/appConfig" \
@@ -114,7 +114,7 @@ with custom values to setup a completely independent project:
 
    aws ssm put-parameter --type "String" \
      --name "/app/aws-lambda-edge/live/appVersion" \
-     --value "1.0.0"
+     --value "1.0.0-rc.0"
 
    aws ssm put-parameter --type "String" \
      --name "/app/aws-lambda-edge/live/appConfig" \
@@ -164,12 +164,12 @@ npm run deploy:app
 Once the app and assets are deployed,
 deploy any version by updating the corresponding parameter.
 
-For example, use version 1.0.0 by default on the live stage
+For example, use version 1.0.0-rc.0 by default on the live stage
 
 ```
 aws ssm put-parameter --overwrite --type "String" \
   --name "/app/aws-lambda-edge/live/appVersion" \
-  --value "1.0.0"
+  --value "1.0.0-rc.0"
 ```
 
 ## Contributing
