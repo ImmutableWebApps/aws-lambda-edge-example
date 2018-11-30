@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- Content security policy headers.
+- New app config parameters `reportUri` and `api`.
+- Use [httpbin.org] to fetch data in React component.
+
 ## [0.4.0] / 2018-11-28
 
 ### Added
@@ -38,6 +46,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ## 0.2.0
 
 - Initial release.
+
+[httpbin.org]: https://httpbin.org/
 
 [Unreleased]: https://github.com/immutablewebapps/aws-lambda-edge-example/compare/v0.4.0...HEAD
 [0.4.0]: https://github.com/immutablewebapps/aws-lambda-edge-example/compare/v0.3.0...v0.4.0
