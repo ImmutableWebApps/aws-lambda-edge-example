@@ -12,8 +12,11 @@ const assetPort = 8081
 const host = 'localhost'
 
 const config = {
-  title: 'Lambda@Edge Immutable Web App'
+  title: 'Lambda@Edge Immutable Web App',
+  reportUri: 'https://httpbin.org/post',
+  api: 'https://httpbin.org'
 }
+
 const options = {
   config: JSON.stringify(config),
   origin: `http://${host}:${assetPort}`,

@@ -91,7 +91,7 @@ with custom values to setup a completely independent project:
 
    aws ssm put-parameter --type "String" \
      --name "/app/aws-lambda-edge/experimental/appConfig" \
-     --value '{"title":"Lambda@Edge Immutable Web App (Experimental)"}'
+     --value '{"title":"Lambda@Edge Immutable Web App (Experimental)","reportUri":"https://httpbin.org/post"}'
    ```
 5. Build and deploy the initial version with
    ```
@@ -118,7 +118,7 @@ with custom values to setup a completely independent project:
 
    aws ssm put-parameter --type "String" \
      --name "/app/aws-lambda-edge/live/appConfig" \
-     --value '{"title":"Lambda@Edge Immutable Web App"}'
+     --value '{"title":"Lambda@Edge Immutable Web App","reportUri":"https://httpbin.org/post"}'
 
    npm run build
    npm run deploy:assets

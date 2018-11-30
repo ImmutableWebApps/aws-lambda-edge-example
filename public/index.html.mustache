@@ -10,7 +10,7 @@
   </head>
   <body>
     <div id="root"></div>
-    <script>window.config = JSON.parse(decodeURIComponent('{{ config }}'))</script>
+    <script>{{{ configScript }}}</script>
     <script src="{{ root }}/index.js"></script>
   </body>
 </html>
