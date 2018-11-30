@@ -1,21 +1,22 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-import './main.css'
+import App from './app'
+
+const rootElementId = 'root'
 
 const defaultAppConfig = {
-  title: 'Lambda@Edge Immutable Web App'
+  title: 'Lambda@Edge Immutable Web App',
+  api: 'https://httpbin.org'
 }
 
-const { title } = window.config || defaultAppConfig
-
-const App = ({ title }) => (
-  <main>
-    <h1>{title}</h1>
-    <div className='logo' />
-  </main>
-)
-const renderApp = () => render(<App title={title} />, document.getElementById('root'))
+const renderApp = () => {
+  const config = window.config || defaultAppConfig
+  render(
+    <App {...config} />,
+    document.getElementById(rootElementId)
+  )
+}
 
 if ('addEventListener' in document) {
   document.addEventListener('DOMContentLoaded', renderApp)
