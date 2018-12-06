@@ -1,6 +1,6 @@
 'use strict'
 
-const { getResponse, getOptions } = require('../lib')
+const { getResponse, getOptionsFromSsm } = require('../lib')
 
 const name = 'aws-lambda-edge'
 const region = 'us-east-1'
@@ -15,7 +15,7 @@ const createHandler = stage => (event, context, callback) => {
       callback(error)
     }
   }
-  getOptions({ region, stage, name }, handleRequest)
+  getOptionsFromSsm({ region, stage, name }, handleRequest)
 }
 
 const formatReq = event => {
