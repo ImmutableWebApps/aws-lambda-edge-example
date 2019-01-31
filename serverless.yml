@@ -47,12 +47,16 @@ custom:
 
 package:
   exclude:
+    - '*'
     - '*/**'
   include:
+    - 'LICENSE.txt'
+    - 'package.json'
     - 'handlers/*.js'
     - 'lib/*.js'
     - 'node_modules/mustache/mustache.js'
     - 'node_modules/mustache/package.json'
+    - 'node_modules/mustache/LICENSE'
 
 resources:
   Resources:
