@@ -30,6 +30,11 @@ functions:
     lambdaAtEdge:
       distribution: AppDistribution
       eventType: origin-request
+  assets:
+    handler: handlers/assets.handler
+    lambdaAtEdge:
+      distribution: AssetDistribution
+      eventType: origin-response
 
 custom:
   organization: ${ssm:/app/${self:service}/organization}
